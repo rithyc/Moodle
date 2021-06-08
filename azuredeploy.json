@@ -1156,7 +1156,7 @@
             "applyScriptsSwitch": "[parameters('applyScriptsSwitch')]",
             "autoscaleVmCountMax": "[parameters('autoscaleVmCountMax')]",
             "autoscaleVmCountMin": "[parameters('autoscaleVmCountMin')]",
-            "vmssMultizoned": "[parameters('vmssMultizoned')]",
+            "vmssZones": "[parameters('vmssZones')]",
             "autoscaleVmSku": "[parameters('autoscaleVmSku')]",
             "azureBackupSwitch": "[parameters('azureBackupSwitch')]",
             "azureSearchHostingMode": "[parameters('azureSearchHostingMode')]",
