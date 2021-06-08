@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script built for Ubuntu Server 16.04 LTS
+# This script built for Ubuntu Server 16.04 LTS => Mod to work with Ubuntu 18.4 
 # You can customize variables such as MOUNTPOINT, RAIDCHUNKSIZE and so on to your needs.
 # You can also customize it to work with other Linux flavours and versions.
 # If you customize it, copy it to either Azure blob storage or Github so that Azure
@@ -201,14 +201,15 @@ sudo apt-get -y install unattended-upgrades
         configure_gluster() {
             echo "gluster step1"
 
-            if [ $isubuntu -eq 0 ];
+            which glusterd
+            _RET=$?
+            if [ $_RET -ne 0 ];
             then
-                /etc/init.d/glusterfs-server status && _RET=$? || _RET=$?
-                if [ $_RET -ne 0 ];
-                then
-                    install_glusterfs_ubuntu
-                fi
-                /etc/init.d/glusterfs-server start
+                install_glusterfs_ubuntu
+                systemctl enable glusterd
+                systemctl enable glustereventsd
+                systemctl start glusterd
+                systemctl start glustereventsd
             fi
 
 			echo "gluster step2"
