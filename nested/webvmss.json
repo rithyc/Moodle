@@ -80,6 +80,7 @@
             ],
             "location": "[parameters('moodleCommon').location]",
             "name": "[parameters('moodleCommon').vmssName]",
+            "zones": if(equals(parameters('vmssZones'), 'None'), ["1"], ["1", "2", "3"]),
             "properties": {
                 "overprovision": true,
                 "upgradePolicy": {
