@@ -2,6 +2,9 @@
 
 #MUST DO the following first:
 
+# service glusterd stop
+# service glustereventsd stop
+
 # umount /datadrive
 # mdadm -S /dev/md1
 # rm -rf /datadrive
@@ -291,11 +294,16 @@ BLACKLIST="xxx"
 
             echo "gluster step4"
 			echo $allNodes
-            echo "sleeping 60 seconds..."
-            sleep 60s
-            gluster volume create ${VOLUMENAME} rep 2 transport tcp ${allNodes} 
-            gluster volume info 
-            gluster volume start ${VOLUMENAME} 
+            echo "sleeping 10 seconds..."
+            sleep 10s
+            
+            echo "==> WARNING: this will likely hang due to a prompt, so please execute the following two commands manually:"
+            echo "# gluster volume create ${VOLUMENAME} rep 2 transport tcp ${allNodes}"
+            echo "# gluster volume start ${VOLUMENAME}"
+            # this volume create will fail due to a prompt warning about splitbrain. Is there a force/silent option?
+            #gluster volume create ${VOLUMENAME} rep 2 transport tcp ${allNodes} 
+            #gluster volume info 
+            #gluster volume start ${VOLUMENAME} 
             echo "gluster complete"
         }
 
