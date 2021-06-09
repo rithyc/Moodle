@@ -294,16 +294,16 @@ BLACKLIST="xxx"
 
             echo "gluster step4"
 			echo $allNodes
-            echo "sleeping 10 seconds..."
+            echo "Sleeping for 10 seconds before creating/starting the volume..."
             sleep 10s
             
-            echo "==> WARNING: this will likely hang due to a prompt, so please execute the following two commands manually:"
-            echo "# gluster volume create ${VOLUMENAME} rep 2 transport tcp ${allNodes}"
-            echo "# gluster volume start ${VOLUMENAME}"
+            echo "==> WARNING: Due to the split-brain warning prompted by gluster and it seems there is no force/silent option, will use the yes command to force it..."
+            #echo "# gluster volume create ${VOLUMENAME} rep 2 transport tcp ${allNodes}"
+            #echo "# gluster volume start ${VOLUMENAME}"
             # this volume create will fail due to a prompt warning about splitbrain. Is there a force/silent option?
-            #gluster volume create ${VOLUMENAME} rep 2 transport tcp ${allNodes} 
-            #gluster volume info 
-            #gluster volume start ${VOLUMENAME} 
+            yes | gluster volume create ${VOLUMENAME} rep 2 transport tcp ${allNodes} 
+            gluster volume info 
+            gluster volume start ${VOLUMENAME} 
             echo "gluster complete"
         }
 
