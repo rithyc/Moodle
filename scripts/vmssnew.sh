@@ -4,10 +4,11 @@ timeStamp=$(date +'%y%m%d_%H%M%S')
 echo "=> VMSS Extension Started [$timeStamp]"
 
 # Specific for this instance
-if [[ $1 =~ ^gluster-vm-(.+)$ ]]; then
+if [[ $1 =~ ^gluster-vm-(.+)$ ]] && [[ $2 =~ ^controller-vm-(.+)$ ]]; then
   glusterNode="$1"
+  controllerNode="$2"
 else
-  printf "Syntax: $0 <glusterVMName>\n"
+  printf "Syntax: $0 <glusterVMName> <controllerVMName>\n"
   exit 10
 fi
 glusterVolume=data
@@ -30,7 +31,7 @@ mount /moodle
 # look for the chained configurator
 echo "=> Chaining the custom node configuration"
 if [ -f /moodle/scripts/unmoodle_vmss_newnode.sh ]; then
-  sh /moodle/scripts/unmoodle_vmss_newnode.sh > /var/log/unmoodle_vmss_newnode.log
+  sh /moodle/scripts/unmoodle_vmss_newnode.sh "$controllerNode" > /var/log/unmoodle_vmss_newnode.log
 fi
 
 echo "=> VMSS Extension Done [$timeStamp]"
