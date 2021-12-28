@@ -31,7 +31,7 @@ mount /moodle
 # look for the chained configurator
 echo "=> Chaining the custom node configuration"
 if [ -f /moodle/scripts/unmoodle_vmss_newnode.sh ]; then
-  sh /moodle/scripts/unmoodle_vmss_newnode.sh "$controllerNode" > /var/log/unmoodle_vmss_newnode.log
+  /bin/bash /moodle/scripts/unmoodle_vmss_newnode.sh "$controllerNode" > /var/log/unmoodle_vmss_newnode.log
 fi
 
 echo "=> VMSS Extension Done [$timeStamp]"
